@@ -200,7 +200,7 @@ def aggregate_transcript(convo, compress_w_gpt3=False):
     if compress_w_gpt3:
       if len_transcript_item > 60: # More than N words in the transcript item.
         what_obj = openai.Completion.create(
-          engine="text-davinci-002",
+          engine="text-davinci-003",
           prompt=f"Summarize the following text:\n\n{convo['what'][counter]}",
           temperature=0.0,
           max_tokens=60,
@@ -230,7 +230,7 @@ def summarize_transcript(aggregated_transcript):
   for transcript_part in aggregated_transcript:
     # print(transcript_part)
     response = openai.Completion.create(
-      engine="text-davinci-002",
+      engine="text-davinci-003",
       prompt=f"""Convert the meeting transcript into a kind and professional first-hand summary of the meeting:
                 Transcript 1:
 
@@ -272,7 +272,7 @@ def identify_followups(aggregated_transcript):
   for transcript_part in aggregated_transcript:
     # print(transcript_part)
     response = openai.Completion.create(
-      engine="text-davinci-002",
+      engine="text-davinci-003",
       prompt=f"""Convert the meeting transcript into a kind and professional list of action items:
                 Transcript 1:
 

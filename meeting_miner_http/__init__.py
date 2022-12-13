@@ -95,7 +95,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         # RETURN: Object. Attr.s: (1) Formatted *list* of follow-ups, (2) Meeting summary *string*
         return func.HttpResponse (
                 json.dumps({
-                    'convo_obj': df.to_dict(), #NOTE: This is a lot of data. Whole transcript! Is it used at all? Might cut down runtime.
                     'action_items': followups_list,
                     'meeting_summary': summary,
                     'general_meeting_metrics': general_meeting_metrics
