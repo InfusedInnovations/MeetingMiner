@@ -70,19 +70,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         # print("\n\nSUMMARY:\n\n", summary)
 
         followups = identify_followups(aggregated_transcript)
-        def item_empty(item):
-            empty_chars = ['', '\n', '\n\n', '\n\n                ', '\n\n               ', '\t']
-            for c in empty_chars: # Contains
-                if c == item:
-                    return True
-
-            return False
-        followups_list = [f for f in followups.split('*') if item_empty(f) != True]
+        followups_list = followups.split('; ')
 
         print(followups_list)
-
-
-        # NOTE: Blank action items are being created for each actual item. Why?
 
         # Store in development to a local directory for comparison.
         if not bool(int(os.environ["PRODUCTION"])):	

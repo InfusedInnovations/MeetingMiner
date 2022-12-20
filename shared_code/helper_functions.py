@@ -144,8 +144,6 @@ def extract_meeting_general_metrics(convo_df):
   return general_metrics
 
 
-
-
 def build_df(convo, intents_list=None):
   """
   Turn parsed conversation data and scores into a dataframe for reading as a table/manipulation.
@@ -229,6 +227,9 @@ def summarize_transcript(aggregated_transcript):
 
   for transcript_part in aggregated_transcript:
     # print(transcript_part)
+      
+    MAX_TOKENS = math.ceil(len(transcript_part.split(" ")) * final_summary_len)
+
     response = openai.Completion.create(
       engine="text-davinci-003",
       prompt=f"""Convert the meeting transcript into a kind and professional first-hand summary of the meeting:
@@ -251,7 +252,7 @@ def summarize_transcript(aggregated_transcript):
                 
                 Summary 2:""",
       temperature=0.0,
-      max_tokens=math.ceil(len(transcript_part.split(" ")) * final_summary_len),
+      max_tokens=MAX_TOKENS if MAX_TOKENS > 256 else 256,
       top_p=1.0,
       frequency_penalty=0.0,
       presence_penalty=0.0
@@ -261,15 +262,23 @@ def summarize_transcript(aggregated_transcript):
   return summarized_transcript
 
 
+# TODO: Try to include counter-examples, i.e. where no action items/problems are identified. Just return, i.e. '--' when no items identified and none will be parsed to resulting list.
+
 def identify_followups(aggregated_transcript):
   """
   Use GPT-3 to identify action items from the meeting transcript.
   """
+
+  # TODO: Identify action items iteratively, generating the next followup (if any) given a list of existing identified followups.
+
   transcript_followups = ""
 
   final_summary_len = 1/20 # Size of the transcript summary in proportion to original length.
-
+  
   for transcript_part in aggregated_transcript:
+
+    MAX_TOKENS = math.ceil(len(transcript_part.split(" ")) * final_summary_len)
+
     # print(transcript_part)
     response = openai.Completion.create(
       engine="text-davinci-003",
@@ -285,17 +294,14 @@ def identify_followups(aggregated_transcript):
                 Mary Adams: Good idea, i'll buy some chocolate for her.
  
                 Action items for transcript 1:
-
-                *Mary will buy some chocolate for Mike's grandma.*
-
-                *Mike and Mary will travel to Mike's grandmother's together.*
+                Mary will buy some chocolate for Mike's grandma.; Mike and Mary will travel to Mike's grandmother's together.
 
                 Transcript 2:
                 {transcript_part}
                 
                 Action items for transcript 2:""",
       temperature=0.0,
-      max_tokens=math.ceil(len(transcript_part.split(" ")) * final_summary_len),
+      max_tokens=MAX_TOKENS if MAX_TOKENS > 256 else 100,
       top_p=1.0,
       frequency_penalty=0.0,
       presence_penalty=0.0
@@ -303,3 +309,48 @@ def identify_followups(aggregated_transcript):
     transcript_followups += response['choices'][0]['text'] 
 
   return transcript_followups
+
+
+def identify_problems(aggregated_transcript):
+  """
+  Use GPT-3 to identify problems from the transcript.
+  """
+  transcript_problems = ""
+
+  final_summary_len = 1/20 # Size of the transcript summary in proportion to original length.
+
+  for transcript_part in aggregated_transcript:
+    # print(transcript_part)
+
+    MAX_TOKENS = math.ceil(len(transcript_part.split(" ")) * final_summary_len)
+
+    response = openai.Completion.create(
+      engine="text-davinci-003",
+      prompt=f"""Convert the meeting transcript into a kind and professional list of participants' problems:
+                Transcript 1:
+
+                Mary Adams: Hi Mike!
+                Mike Daly: Hello.
+                Mary Adams: do u have any plans for tonight?
+                Mike Daly: I'd like to visit my grandma, but my car is old and unreliable.
+
+                Mike Daly: If I find a way to get there, you can go with me.
+                Mike Daly: She likes u very much.
+                Mary Adams: Good idea, i'd buy some chocolate for her, but unfortunately I don't have enough money.
+ 
+                Problems identified in transcript 1:
+                Mike's car is old and unreliable.; Mary does not have enough money to buy Mike's grandma chocolate.
+
+                Transcript 2:
+                {transcript_part}
+                
+                Problems identified in transcript 2:""",
+      temperature=0.0,
+      max_tokens=MAX_TOKENS if MAX_TOKENS > 256 else 256,
+      top_p=1.0,
+      frequency_penalty=0.0,
+      presence_penalty=0.0
+    )
+    transcript_problems += response['choices'][0]['text'] 
+
+  return transcript_problems
