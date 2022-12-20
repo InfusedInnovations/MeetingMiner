@@ -294,7 +294,7 @@ def identify_followups(aggregated_transcript):
                 Mary Adams: Good idea, i'll buy some chocolate for her.
  
                 Action items for transcript 1:
-                Mary will buy some chocolate for Mike's grandma.; Mike and Mary will travel to Mike's grandmother's together.
+                Mary will buy some chocolate for Mike's grandma.; Mike and Mary will travel to Mike's grandmother's together.;
 
                 Transcript 2:
                 {transcript_part}
