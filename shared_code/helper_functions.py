@@ -244,15 +244,15 @@ def summarize_transcript(aggregated_transcript):
                 Mary Adams: Good idea, i'll buy some chocolate for her.
  
                 Summary 1:
-
                 Mike and Mary discussed going to visit Mike's grandma tonight. Mary will buy Mike's grandma some chocolate.
 
                 Transcript 2:
                 {transcript_part}
                 
-                Summary 2:""",
+                Summary 2:
+                """,
       temperature=0.0,
-      max_tokens=MAX_TOKENS if MAX_TOKENS > 256 else 256,
+      max_tokens=MAX_TOKENS if MAX_TOKENS > 128 else 128,
       top_p=1.0,
       frequency_penalty=0.0,
       presence_penalty=0.0
@@ -299,9 +299,10 @@ def identify_followups(aggregated_transcript):
                 Transcript 2:
                 {transcript_part}
                 
-                Action items for transcript 2:""",
+                Action items for transcript 2:
+                """,
       temperature=0.0,
-      max_tokens=MAX_TOKENS if MAX_TOKENS > 256 else 100,
+      max_tokens=MAX_TOKENS if MAX_TOKENS > 100 else 100,
       top_p=1.0,
       frequency_penalty=0.0,
       presence_penalty=0.0
@@ -344,9 +345,10 @@ def identify_problems(aggregated_transcript):
                 Transcript 2:
                 {transcript_part}
                 
-                Problems identified in transcript 2:""",
+                Problems identified in transcript 2:
+                """,
       temperature=0.0,
-      max_tokens=MAX_TOKENS if MAX_TOKENS > 256 else 256,
+      max_tokens=MAX_TOKENS if MAX_TOKENS > 128 else 128,
       top_p=1.0,
       frequency_penalty=0.0,
       presence_penalty=0.0
