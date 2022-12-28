@@ -2,6 +2,10 @@ import logging
 import openai
 import json
 import azure.functions as func
+import os
+
+openai.api_key = "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"
+
 
 def write_followup_email(meeting_summary, action_items):
     """Write a follow-up email to the meeting attendees."""
@@ -39,6 +43,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         # TODO: Feed input to GPT-3 to generate a follow-up email.
         email_body = write_followup_email(summary, action_items)
+
+        # if not bool(int(os.environ["PRODUCTION"])): # Log email body if not in production.
+        print("Email body: " + email_body)
 
         # TODO: Return email body.
         return func.HttpResponse(
