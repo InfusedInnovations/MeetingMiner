@@ -13,6 +13,7 @@ import math
 import os
 import datetime
 
+
 def parse_speaker_from_vtt_tag(tag):
   """Returns the name of the speaker given a tag from a VTT file."""
   return tag[0].split('>')[0][2:][1:]
@@ -175,8 +176,6 @@ def aggregate_transcript(convo, compress_w_gpt3=False):
   compress_w_gpt3: Do an intermediate compression stage on transcript parts using GPT3.
   """
 
-  openai.api_key = "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"
-
   aggregated_transcript = [""]
 
   # sum_len_transcript_parts = 0 # Use to sum up the total transcript length and split it into parts when necessary.
@@ -198,7 +197,7 @@ def aggregate_transcript(convo, compress_w_gpt3=False):
     if compress_w_gpt3:
       if len_transcript_item > 60: # More than N words in the transcript item.
         what_obj = openai.Completion.create(
-          engine="text-davinci-003",
+          engine=MODEL_DEPLOYMENT,
           prompt=f"Summarize the following text:\n\n{convo['what'][counter]}",
           temperature=0.0,
           max_tokens=60,
@@ -219,7 +218,18 @@ def aggregate_transcript(convo, compress_w_gpt3=False):
   return aggregated_transcript
 
 
+def set_openai_creds():
+  openai.api_type = "azure"
+  openai.api_base = "https://meetingminer-openai.openai.azure.com/"
+  openai.api_version = "2022-06-01-preview"
+  openai.api_key = "86fa297756244477b7c99311a9c7b67a"
+  return
+
+MODEL_DEPLOYMENT = "meetingminer-text-davinci-003"
+
 def summarize_transcript(aggregated_transcript):
+
+  set_openai_creds()
 
   summarized_transcript = ""
 
@@ -231,7 +241,7 @@ def summarize_transcript(aggregated_transcript):
     MAX_TOKENS = math.ceil(len(transcript_part.split(" ")) * final_summary_len)
 
     response = openai.Completion.create(
-      engine="text-davinci-003",
+      engine=MODEL_DEPLOYMENT,
       prompt=f"""Convert the meeting transcript into a kind and professional first-hand summary of the meeting:
                 Transcript 1:
 
@@ -271,6 +281,8 @@ def identify_followups(aggregated_transcript):
 
   # TODO: Identify action items iteratively, generating the next followup (if any) given a list of existing identified followups.
 
+  set_openai_creds()
+
   transcript_followups = ""
 
   final_summary_len = 1/20 # Size of the transcript summary in proportion to original length.
@@ -281,7 +293,7 @@ def identify_followups(aggregated_transcript):
 
     # print(transcript_part)
     response = openai.Completion.create(
-      engine="text-davinci-003",
+      engine=MODEL_DEPLOYMENT,
       prompt=f"""Convert the meeting transcript into a kind and professional list of action items:
                 Transcript 1:
 
@@ -318,6 +330,8 @@ def identify_problems(aggregated_transcript):
   """
   transcript_problems = ""
 
+  set_openai_creds()
+
   final_summary_len = 1/20 # Size of the transcript summary in proportion to original length.
 
   for transcript_part in aggregated_transcript:
@@ -326,7 +340,7 @@ def identify_problems(aggregated_transcript):
     MAX_TOKENS = math.ceil(len(transcript_part.split(" ")) * final_summary_len)
 
     response = openai.Completion.create(
-      engine="text-davinci-003",
+      engine=MODEL_DEPLOYMENT,
       prompt=f"""Convert the meeting transcript into a kind and professional list of participants' problems:
                 Transcript 1:
 
