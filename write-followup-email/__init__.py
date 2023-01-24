@@ -3,12 +3,12 @@ import openai
 import json
 import azure.functions as func
 import os
-
-openai.api_key = "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"
-
+from shared_code.helper_functions import initialize_openai
 
 def write_followup_email(meeting_summary, action_items):
     """Write a follow-up email to the meeting attendees."""
+
+    initialize_openai()
 
     response = openai.Completion.create(
         engine="text-davinci-003", 

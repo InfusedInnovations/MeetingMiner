@@ -44,10 +44,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         # Construct the parsed conversation object
         convo = parse_vtt_data(transcript_text_buffer)
 
-        # Score the conversation items as follow-up/not via the LUIS endpoint URL
-        # luis_endpoint_url = "https://luis-for-followup-recognition.cognitiveservices.azure.com/luis/prediction/v3.0/apps/d72eaca3-1cff-49ed-b769-fce7c6c71805/slots/staging/predict?verbose=true&show-all-intents=true&log=true&subscription-key=51f33a9b20bd4f1da87e0af8c5fc64b7&query="
-        # intents_list = score_conversation(convo, luis_endpoint_url)
-
         # Format scored items as a dataframe. Filter out follow-ups. 
         df = build_df(convo)
         # followup_intents_df = df[ (df['top_intent'] == 'followUp') ]
@@ -95,22 +91,3 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 f"An exception occurred in the execution of this function. Exception: {e}.",
                 status_code=500
         )
-"""
-# Starter code
-name = req.params.get('name')
-if not name:
-    try:
-        req_body = req.get_json()
-    except ValueError:
-        pass
-else:
-    name = req_body.get('name')
-
-if name:
-    return func.HttpResponse(f"Hellooo, {name}. This HTTP triggered function executed successfully.")
-else:
-    return func.HttpResponse(
-            "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-            status_code=200
-    )
-"""

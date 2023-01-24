@@ -222,7 +222,7 @@ def set_openai_creds():
   openai.api_type = "azure"
   openai.api_base = "https://meetingminer-openai.openai.azure.com/"
   openai.api_version = "2022-06-01-preview"
-  openai.api_key = "86fa297756244477b7c99311a9c7b67a"
+  openai.api_key = os.environ["AZURE_OAI_API_KEY"]
   return
 
 MODEL_DEPLOYMENT = "meetingminer-text-davinci-003"
