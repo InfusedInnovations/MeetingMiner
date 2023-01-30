@@ -26,14 +26,20 @@ The components include:
       - Handling meeting start events to remind a meeting's organizer to start transcribing the meeting.
     * Power Apps app (user interface)
     * Custom Datverse tables for this solution
-2. Azure Function App
+2. Azure Function App code.
     * Hosts the OpenAI code for the A.I. to process meeting transcript data into more valuable outputs.
     * Contains a function which can be called to write a follow-up email based on a summary of the meeting and the action items from the meeting.
+
+3. Azure infrastructure resources.
+    * Azure AD application which requests the necessary permissions.
+    * Security group to allocate application permissions and licensing to the application users on the tenant.
 
 ## Launching the solution
 
 1. Create Azure application and security group.
-2. Create Azure Function for writing code.
+2. Create an Azure OpenAI resource.
+3. Create Azure Function for writing code.
+4. Import the Power Platform solution (user interface, .
 
 
 ## Developing new features
