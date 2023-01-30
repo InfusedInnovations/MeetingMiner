@@ -225,7 +225,7 @@ def set_openai_creds():
   openai.api_key = os.environ["AZURE_OAI_API_KEY"]
   return
 
-MODEL_DEPLOYMENT = "meetingminer-text-davinci-003"
+MODEL_DEPLOYMENT = os.environ["AZURE_OAI_MODEL_DEPLOYMENT"]
 
 def summarize_transcript(aggregated_transcript):
 

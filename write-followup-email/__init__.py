@@ -3,15 +3,17 @@ import openai
 import json
 import azure.functions as func
 import os
-from shared_code.helper_functions import initialize_openai
+from shared_code.helper_functions import *
+
+MODEL_DEPLOYMENT = os.environ["AZURE_OAI_MODEL_DEPLOYMENT"]
 
 def write_followup_email(meeting_summary, action_items):
     """Write a follow-up email to the meeting attendees."""
 
-    initialize_openai()
+    set_openai_creds()
 
     response = openai.Completion.create(
-        engine="text-davinci-003", 
+        engine=MODEL_DEPLOYMENT, 
         max_tokens=512,
         prompt=
         f"""
