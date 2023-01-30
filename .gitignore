@@ -8,6 +8,7 @@ __pycache__/
 
 # Custom
 local_test_files/
+git-filter-repo.py
 
 # Distribution / packaging
 .Python
