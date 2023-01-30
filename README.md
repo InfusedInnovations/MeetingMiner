@@ -5,6 +5,8 @@
 A GPT-based natural language cognitive assistant for extracting valuable information from Microsoft Teams meetings.
 MeetingMiner can write follow-up emails to operationalize information, identifying action items to be shared with teammates, and more.
 
+This repository is a work in progress, and will be available for use within the next few days. Interested in launching the MeetingMiner solution? Contact brennan@infusedinnovations.com!
+
 ## Solution demonstration
 
 A demonstration of the MeetingMiner solution can be found [here](https://www.figma.com/proto/B6nuI0whiPscjNVECBvpwr/MeetingMiner-Demo?node-id=180%3A298&scaling=scale-down&page-id=55%3A0&starting-point-node-id=180%3A298).
@@ -30,9 +32,8 @@ The components include:
 
 ## Launching the solution
 
-1. First
-2. Next
-3. Then
+1. Create Azure application and security group.
+2. Create Azure Function for writing code.
 
 
 ## Developing new features
