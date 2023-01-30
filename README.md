@@ -9,7 +9,7 @@ This repository is a work in progress, and will be available for use within the 
 
 ## Solution demonstration
 
-A demonstration of the MeetingMiner solution can be found [here](https://www.figma.com/proto/B6nuI0whiPscjNVECBvpwr/MeetingMiner-Demo?node-id=180%3A298&scaling=scale-down&page-id=55%3A0&starting-point-node-id=180%3A298).
+A demonstration of the MeetingMiner solution can be found <a href="https://www.figma.com/proto/B6nuI0whiPscjNVECBvpwr/MeetingMiner-Demo?node-id=180%3A298&scaling=scale-down&page-id=55%3A0&starting-point-node-id=180%3A298" target="_blank">here</>.
 
 ## Repository contents
 
@@ -36,14 +36,36 @@ The components include:
 
 ## Launching the solution
 
-1. Create Azure application and security group.
-2. Create an Azure OpenAI resource.
-3. Create Azure Function for writing code.
+1. <a href="https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal">Create an enterprise application</a> in Azure. The following Microsoft Graph permissions must be granted.
+    * User.Read
+    * OnlineMeetings.Read.All
+    * OnlineMeetings.ReadWrite.All
+    * OnlineMeetingArtifact.Read.All
+    * Calendars.Read
+    * CallRecords.Read.All
+    * OnlineMeetingTranscript.Read.All
+    * Calendars.ReadWrite
+2. <a href="https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/create-resource?pivots=web-portal">Create an Azure OpenAI resource</a> and deploy a GPT-3 model instance.
+3. Download the code in the repository and use it to deploy the Azure functions to your Azure tenant. Fill in the following application settings under your Azure Function App > Configuration in the Azure Portal.
+    * AZURE_OAI_API_KEY. The API key for the Azure OpenAI resource you just created.
+    * AZURE_OAI_MODEL_DEPLOYMENT. The name of the GPT-3 model you just deployed.
+    * PRODUCTION. Use the value of "1" in the Azure Portal (and "0" locally if you want some added development benefits.
 4. Import the Power Platform solution (user interface, AI processing logic, reminders/notifications).
+    * Fill in the following environment variables.
+      - lead_mm_developer_email. The lead developer who wants to be notified about application usage and performance.
+      - optedInUsers. A list of email addresses for the users in your tenant that want to use your application. Format should be, i.e., {"optedIn":["user1@mytenant.com", "user2@mytenant.com"]}.
+      - production. Use the value "Yes" when your application is in production or "No" when you want to take different actions in your flows while under development.
+      - production_application_id. The ID of the enterprise application you set up in the step above.
+      - production_client_secret. The client secret of the enterprise application you set up in the step above.
+      - production_tenant_id. The ID of your azure tenant. Can be found in the Azure Portal.
+    * Create connections when prompted.
+    
+ Congratulations! You're ready to start using MeetingMiner to increase your team's productivity.
 
 
-## Developing new features
+<!-- ## Developing new features ### Set up local environment for Azure Function development ### Power Platform solution architecture -->
 
-### Set up local environment for Azure Function development
 
-### Power Platform solution architecture 
+
+
+ 
