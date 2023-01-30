@@ -39,7 +39,7 @@ The components include:
 1. Create Azure application and security group.
 2. Create an Azure OpenAI resource.
 3. Create Azure Function for writing code.
-4. Import the Power Platform solution (user interface, .
+4. Import the Power Platform solution (user interface, AI processing logic, reminders/notifications).
 
 
 ## Developing new features
