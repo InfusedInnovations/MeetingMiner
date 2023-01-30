@@ -9,7 +9,7 @@ This repository is a work in progress, and will be available for use within the 
 
 ## Solution demonstration
 
-A demonstration of the MeetingMiner solution can be found <a href="https://www.figma.com/proto/B6nuI0whiPscjNVECBvpwr/MeetingMiner-Demo?node-id=180%3A298&scaling=scale-down&page-id=55%3A0&starting-point-node-id=180%3A298" target="_blank">here</>.
+A demonstration of the MeetingMiner solution can be found <a href="https://www.figma.com/proto/B6nuI0whiPscjNVECBvpwr/MeetingMiner-Demo?node-id=180%3A298&scaling=scale-down&page-id=55%3A0&starting-point-node-id=180%3A298" target="_blank">here</a>.
 
 ## Repository contents
 
