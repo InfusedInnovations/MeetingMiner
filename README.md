@@ -11,7 +11,7 @@ Facing difficulties? Contact support@infusedinnovations.com! We are very respons
 
 * Experience developing solutions with Power Platform including: Power Automate, Power Apps, and Dataverse.
 * Experience developing Azure solutions including like Azure Functions and minimal experience with Azure AD for delegating MS Graph application permissions.
-* <a href="https://learn.microsoft.com/en-us/power-platform/admin/pricing-billing-skus">Power Platform licensing knowledge</a>. Licenses will need to be administered for Power Apps for your users to leverage the solution.
+* <a href="https://learn.microsoft.com/en-us/power-platform/admin/pricing-billing-skus">Power Platform administration/licensing knowledge</a>. Licenses will need to be administered for Power Apps for your users to leverage the solution.
 
 ## Solution demonstration
 
