@@ -36,7 +36,6 @@ The components include:
 2. Azure Function App code.
     * Hosts the OpenAI code for the A.I. to process meeting transcript data into more valuable outputs.
     * Contains a function which can be called to write a follow-up email based on a summary of the meeting and the action items from the meeting.
-
 3. Azure infrastructure resources.
     * Azure AD application which requests the necessary permissions.
     * Security group to allocate application permissions and licensing to the application users on the tenant.
