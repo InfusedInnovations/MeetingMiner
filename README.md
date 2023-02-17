@@ -5,7 +5,7 @@
 A GPT-based natural language cognitive assistant for extracting valuable information from Microsoft Teams meetings.
 MeetingMiner can write follow-up emails to operationalize information, identifying action items to be shared with teammates, and more.
 
-Facing difficulties? Contact support@infusedinnovations.com! We are very responsive and open to helping you launch MeetingMiner at your organization.
+Facing difficulties? <a href="https://www.infusedinnovations.com/lets-collaborate">Contact us</a>! We are very responsive and open to helping you launch MeetingMiner at your organization.
 
 ## Pre-requisites
 
